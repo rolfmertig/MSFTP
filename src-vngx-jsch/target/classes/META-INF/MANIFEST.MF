@@ -1,0 +1,44 @@
+Manifest-Version: 1.0
+Export-Package: org.vngx.jsch.constants,org.vngx.jsch.kex;uses:="javax
+ .crypto.interfaces,org.vngx.jsch.hash,org.vngx.jsch.util,org.vngx.jsc
+ h.config,org.vngx.jsch,org.vngx.jsch.exception,javax.crypto,javax.cry
+ pto.spec,org.vngx.jsch.algorithm",org.vngx.jsch.hash;uses:="javax.cry
+ pto.spec,org.vngx.jsch.config,org.vngx.jsch,org.vngx.jsch.algorithm,o
+ rg.vngx.jsch.exception,javax.crypto",org.vngx.jsch.util;uses:="org.vn
+ gx.jsch.hash,org.vngx.jsch.config,org.vngx.jsch,org.vngx.jsch.excepti
+ on,org.vngx.jsch.algorithm,org.vngx.jsch.cipher",org.vngx.jsch.config
+ ;uses:="org.vngx.jsch,org.vngx.jsch.cipher,org.vngx.jsch.userauth",or
+ g.vngx.jsch;uses:="org.vngx.jsch.constants,org.vngx.jsch.hash,org.vng
+ x.jsch.util,org.vngx.jsch.config,org.vngx.jsch.exception,org.vngx.jsc
+ h.userauth,org.vngx.jsch.kex,javax.net,org.vngx.jsch.algorithm,org.vn
+ gx.jsch.cipher,org.vngx.jsch.proxy",org.vngx.jsch.algorithm;uses:="or
+ g.vngx.jsch.config,org.vngx.jsch,org.vngx.jsch.exception,org.vngx.jsc
+ h.kex,com.jcraft.jzlib",org.vngx.jsch.exception,org.vngx.jsch.proxy;u
+ ses:="org.vngx.jsch.util,org.vngx.jsch,org.vngx.jsch.exception",org.v
+ ngx.jsch.cipher;uses:="javax.crypto.spec,org.vngx.jsch.config,org.vng
+ x.jsch,org.vngx.jsch.algorithm,org.vngx.jsch.exception,javax.crypto",
+ org.vngx.jsch.userauth;uses:="org.vngx.jsch.constants,org.vngx.jsch.h
+ ash,org.vngx.jsch.util,org.vngx.jsch.config,org.vngx.jsch,org.vngx.js
+ ch.exception,org.ietf.jgss,org.vngx.jsch.algorithm,org.vngx.jsch.ciph
+ er"
+Ignore-Package: org.vngx.jsch.constants,org.vngx.jsch.kex,org.vngx.jsc
+ h.hash,org.vngx.jsch.util,org.vngx.jsch.config,org.vngx.jsch,org.vngx
+ .jsch.algorithm,org.vngx.jsch.exception,org.vngx.jsch.proxy,org.vngx.
+ jsch.cipher,org.vngx.jsch.userauth
+Built-By: Rolf Mertig
+Tool: Bnd-0.0.238
+Bundle-Name: vngx-jsch
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.7.0_05
+Bundle-Version: 0.10
+Bnd-LastModified: 1356649886125
+Bundle-ManifestVersion: 2
+Bundle-Description: **vngx-jsch** (beta) is an updated version of the 
+ popular JSch SSH library     written in pure Java.  It has been updat
+ ed to Java 6 with all the latest     language features and improved c
+ ode clarity.
+Bundle-License: http://en.wikipedia.org/wiki/MIT_License
+Import-Package: com.jcraft.jzlib;version="1.0",javax.crypto,javax.cryp
+ to.interfaces,javax.crypto.spec,javax.net,org.ietf.jgss
+Bundle-SymbolicName: org.vngx.vngx-jsch
+
