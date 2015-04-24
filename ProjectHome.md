@@ -1,0 +1,2 @@
+MSFTP is a JLink and vngx-jsch based Mathematica package which implements MSFTPPut, MSFTGet and PassEncode.
+This enables password-protected secure up- and downloads to and from any server  which allows sftp access.
