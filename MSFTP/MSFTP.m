@@ -1,21 +1,21 @@
 (* ::Package:: MSFTP` *)
 
-(* ::Copyright:: Rolf Mertig, 2013 *)
+(* ::Copyright:: Rolf Mertig, 2013 - 2015 *)
 
-(* ::Author:: Rolf Mertig , GluonVision GmbH,  http://www.mertig.com *)
+(* ::Author:: Rolf Mertig , GluonVision GmbH,  http://www.gluonvision.com *)
 
 (* ::License:: LGPL *)
 
 (* ::Title:: *)
 (* Implementation of sftp for Mathematica, using JLink and vngx-jsch *)
 
-(* :: Mathematica Version: 7, 8, or 9 *)
+(* :: Mathematica Version: 7 - 10  *)
 
 (* ::Installation and loading:: *)
 (*
 
 Import["http://packageinstaller.googlecode.com/hg/PackageInstaller/PackageInstaller.m"];
-PackageInstaller`InstallPackage["http://msftp.googlecode.com/hg/MSFTP.zip"];
+MathematicaPackageInstaller`MathematicaPackageInstall["http://msftp.googlecode.com/hg/MSFTP.zip"];
 Needs["MSFTP`"];
 NotebookOpen[ FileNameJoin[{ParentDirectory@DirectoryName[FindFile["MSFTP`"]], "MSFTP.nb"}]];
 
@@ -27,7 +27,7 @@ BeginPackage["MSFTP`", {"JLink`"}]
 Unprotect[MSFTPPut, MSFTPGet, PassEncode];
 ClearAll[MSFTPPut, MSFTPGet, PassEncode];
 
-InstallJava[];
+If[$VersionNumber < 10, JLink`InstallJava[]; ];
 
 Block[{ifn},
 	ifn = If[$VersionNumber < 8, System`Private`FindFile[$Input], $InputFileName];
@@ -39,7 +39,7 @@ The resulting list can be given as an encoded password setting for the option Pa
 
 MSFTPGet::usage = "MSFTPGet[remotefile, localdir] transfers remotefile to localdir.";
 
-MSFTPPut::usage = "MSFTPPut[fileordirectory, \"UserName\" -> \"rolfm\", \"HostName\" -> \"sftpserver.company.com\", 
+MSFTPPut::usage = "MSFTPPut[fileordirectory, \"UserName\" -> \"rolfm\", \"HostName\" -> \"sftpserver.mycompany.com\", 
 \"Password\"->\"secret\"] uploads fileordirectory. MSFTPPut[fileordir, remotedir] uploads to remotedir.
 The password can be either given in clear text, or as a list of integers as returned by PassEncode[\"mypassword\"].";
 
@@ -56,7 +56,7 @@ Options[MSFTPGet] = {
                      "StrictHostKeyChecking" -> "no",
                      "PreferredAuthentications" -> "password",
                      "UserName" :> $UserName,
-                     Print -> True
+                     Print -> False 
                      };
                      
 Options[MSFTPPut] = Options[MSFTPGet];
@@ -76,7 +76,7 @@ PassDecode[s_String] := s;
    
 PassDecode[li : {__Integer}] := ReleaseHold[ImportString[FromCharacterCode[li], "Package"]];
 
-openChannel[prot_String, opts_List] :=
+openChannelM[prot_String, opts_List] :=
     Block[ {setProperty, connect, str2byte, isAuthenticated, isConnected, createSession},
         Catch[Module[ {channel, conf, jsch, util, username, host, port, pwd, session},
                   InstallJava[];
@@ -96,25 +96,45 @@ openChannel[prot_String, opts_List] :=
     ]; 
             
 (* get files *)
-MSFTPGet[remotefile_String, localdir_String:Directory[], opts:OptionsPattern[] ] :=
-Block[{getAttrs, getSize, toArray, get, disconnect, getFilename, ls},
-    Catch @ Module[ {channel, lsfile, filesize, remotefiles, lsrem, localfilenames, print},
+MSFTPGet[remotefileordir_String, localdir_String:Directory[], opts:OptionsPattern[] ] :=
+Block[{getAttrs, getSize, toArray, get, disconnect, getFilename, ls, i,stat, isDir, cd, pwd},
+    Catch @ Module[ {channel, filesize, lsrem, localfilenames, print, localdirs, remotedirs, remotefilesanddirs, remotefiles, directoryQ, rdir},
     	If[OptionValue[Print]===Print, print = Print, print = Hold];
-			channel = openChannel["sftp", Flatten[Join[{opts}, Options[MSFTPGet]]]];
-              lsrem = channel @ ls[remotefile];
-              If[ lsfile === $Failed, Message[MSFTP::notfound, remotefile]; Throw[$Failed] ];
+			channel = openChannelM["sftp", Flatten[Join[{opts}, Options[MSFTPGet]]]];
+			directoryQ = (channel @ stat[#] @ isDir[])&;
+              If[Not[directoryQ[remotefileordir]],
+              	(* remotefileordir is not a directory : *)
+	              lsrem = channel @ ls[remotefileordir]
+	              ,
+	            (* remotefileordir is a directory: *)   
+	              channel @ cd[remotefileordir];
+                  rdir = channel @ pwd[];
+	              lsrem = channel @ ls["*"]
+              ];
+              If[ lsrem === $Failed, Message[MSFTP::notfound, remotefileordir]; Throw[$Failed] ];
               (* even though not useful here, this would also work with a pattern *)
               filesize = Total@Through[Through[lsrem@toArray[]@getAttrs[]]@getSize[]];
               If[ OptionValue[Print],
                   Print["# of bytes to transfer : ", filesize]
               ];
-              remotefiles = Through[lsrem@toArray[]@getFilename[]];
+              remotefilesanddirs  = Through[lsrem@toArray[]@getFilename[]];
+              remotedirs = Select[remotefilesanddirs, directoryQ];
+              remotefiles = Complement[remotefilesanddirs, remotedirs];
               localfilenames = FileNameJoin[{localdir, #}]& /@ remotefiles;
+			  localdirs = DeleteDuplicates[DirectoryName /@ localfilenames];
+			  localdirs = Join[localdirs, FileNameJoin[{localdir, #}]& /@ remotedirs];
+			  Map[If[!DirectoryQ[#], CreateDirectory[#]]& /@ localdirs ];
               Do[ 
               	print["transferring ", remotefiles[[i]]];
-              	channel@get[remotefiles[[i]], localfilenames[[i]]], {i, Length@remotefiles}];
+              	channel@get[remotefiles[[i]], localfilenames[[i]]], {i, Length@remotefiles}
+              ];
+              If[remotedirs =!= {},
+              	(* recursion is always nice ... : *)
+              	MSFTPGet[remotefileordir <> "/" <> #, FileNameJoin[{localdir, #}], opts]& /@ remotedirs
+              ];
+              
               channel@disconnect[];
-              Total[ FileByteCount /@ localfilenames ]
+              {localdir, Total[ FileByteCount /@ Select[FileNames["*", localdir, Infinity], FileType[#]===File &]]}
     	]]
 
 (* local can be either a file, or a wildcard or a directory *)
@@ -158,10 +178,8 @@ putdir[chan_, dir_String?DirectoryQ, opts___?OptionQ] := Block[{cd, put, pwd},
 MSFTPPut[local_String, remotedir_String, opts:OptionsPattern[] ] :=
 Block[{cd, getAttrs, getSize, toArray, get, disconnect, getFilename, mkdir, setProperty, ls, put},
     Catch@Module[ {channel, dir = Directory[]},
-			channel = openChannel["sftp", Flatten[Join[{opts}, Options[MSFTPPut]]]];
-			(*
-Global`CHANNEL = channel;		
-*)
+			channel = openChannelM["sftp", 
+				Flatten[Join[{opts}, Options[MSFTPPut]]]];
 			  chdir[channel, remotedir];
               If[ FileType[local] === File, putfile[channel, local]];
               If[ FileType[local] === Directory, putdir[channel, local, opts]];
