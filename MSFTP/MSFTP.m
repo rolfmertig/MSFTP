@@ -50,7 +50,7 @@ Block[{ifn},
 
 
 Options[MSFTPGet] = {
-                     "HostName" -> "test.gluonvision.de", 
+                     "HostName" -> "www.gluonvision.com", 
                      "Password" -> "secret",
                      "Port" -> 22,
                      (* there are more of these options. In principle easy to implement *)
