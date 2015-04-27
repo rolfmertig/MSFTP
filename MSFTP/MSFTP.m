@@ -15,7 +15,7 @@
 (*
 
 Get@"http://goo.gl/Ncbbi6";          (* load MathematicaPackageInstall *)
-MathematicaPackageInstall["MSFTP`"]; (* install MSFTP` *)
+MathematicaPackageInstall`MathematicaPackageInstall["MSFTP`"]; (* install MSFTP` *)
 Needs["MSFTP`"];                     (* load it *)
 NotebookOpen[ FileNameJoin[{ParentDirectory@DirectoryName[FindFile["MSFTP`"]], "MSFTP.nb"}]];
 
