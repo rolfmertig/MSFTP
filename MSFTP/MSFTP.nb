@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      8443,        303]
-NotebookOptionsPosition[      6339,        224]
-NotebookOutlinePosition[      7058,        252]
-CellTagsIndexPosition[      6974,        247]
+NotebookDataLength[      8983,        320]
+NotebookOptionsPosition[      6723,        236]
+NotebookOutlinePosition[      7514,        266]
+CellTagsIndexPosition[      7390,        260]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -21,10 +21,23 @@ Notebook[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"PrependTo", "[", 
-   RowBox[{"$Path", ",", 
+   RowBox[{"$Path", ",", " ", 
     RowBox[{
      RowBox[{"NotebookDirectory", "[", "]"}], "//", "ParentDirectory"}]}], 
-   "]"}], ";"}]], "Input"],
+   "]"}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "if", " ", "this", " ", "notebook", " ", "is", " ", "called", " ", "from", 
+    " ", "workbench"}], " ", "*)"}]}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"NotebookDirectory", "[", "]"}], "//", "ParentDirectory"}]], "Input"],
+
+Cell[BoxData["\<\"C:\\\\repositorygit\\\\MSFTP\"\>"], "Output"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -57,7 +70,15 @@ Cell[BoxData[
        "\"\<https://raw.githubusercontent.com/rolfmertig/\
 MathematicaPackageInstall/master/MathematicaPackageInstall/\
 MathematicaPackageInstall.m\>\""}]}], "\[IndentingNewLine]", "]"}], ";", 
-    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"MathematicaPackageInstall`$AutoInstall", " ", "=", " ", "True"}],
+     ";", " ", 
+    RowBox[{"(*", " ", 
+     RowBox[{
+     "automatically", " ", "install", " ", "Unzip", " ", "and", " ", 
+      "CopyRemote", " ", "to", " ", 
+      RowBox[{"$UserBase", "/", "Applications"}]}], " ", "*)"}], 
+    "\[IndentingNewLine]", 
     RowBox[{
     "MathematicaPackageInstall`MathematicaPackageInstall", "[", 
      "\"\<MSFTP`\>\"", "]"}]}]}], "\[IndentingNewLine]", "]"}]], "Input"],
@@ -73,9 +94,29 @@ Cell[CellGroupData[{
 
 Cell["Load and inspect package", "Section"],
 
-Cell[BoxData[
+Cell[CellGroupData[{
+
+Cell[BoxData[{
  RowBox[{
-  RowBox[{"Needs", "[", "\"\<MSFTP`\>\"", "]"}], ";"}]], "Input"],
+  RowBox[{
+   RowBox[{"Needs", "[", "\"\<MSFTP`\>\"", "]"}], ";"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{"Names", "[", "\"\<MSFTP`*\>\"", "]"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"MSFTPGet\"\>", ",", "\<\"MSFTPPut\"\>", 
+   ",", "\<\"openchan\"\>", ",", "\<\"PassEncode\"\>"}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindFile", "[", "\"\<MSFTP`\>\"", "]"}]], "Input"],
+
+Cell[BoxData["\<\"C:\\\\repositorygit\\\\MSFTP\\\\MSFTP\\\\Kernel\\\\init.m\"\
+\>"], "Output"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -89,7 +130,7 @@ Cell[BoxData[
 to remotedir.\\nThe password can be either given in clear text, or as a list \
 of integers as returned by PassEncode[\\\"mypassword\\\"].\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3639168019-9281621"]
+ CellTags->"Info3639171037-9409296"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -100,22 +141,7 @@ Cell[BoxData[
 Cell[BoxData[
  StyleBox["\<\"MSFTPGet[remotefile, localdir] transfers remotefile to \
 localdir.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3639168019-9281621"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"Options", "[", "MSFTPPut", "]"}], "//", "InputForm"}]], "Input"],
-
-Cell["\<\
-{\"HostName\" -> \"www.gluonvision.com\", \"Password\" -> \"kubap0d.b3rl1n\", \
-\"Port\" -> 22, 
- \"StrictHostKeyChecking\" -> \"no\", \"PreferredAuthentications\" -> \
-\"password\", 
- \"UserName\" -> \"kuba\", Print -> True}\
-\>", "Output"]
+ CellTags->"Info3639171038-9409296"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -128,23 +154,7 @@ Cell[BoxData[
 $MachineID of the current computer. \\nThe resulting list can be given as an \
 encoded password setting for the option Password of MSFTPPut and \
 MSFTPGet.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3639168019-9281621"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"PassEncode", "[", "\"\<p4ssW.rdD\>\"", "]"}]], "Input"],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-  "40", ",", "42", ",", "33", ",", "49", ",", "72", ",", "33", ",", "42", ",",
-    "41", ",", "57", ",", "50", ",", "125", ",", "10", ",", "64", ",", "120", 
-   ",", "122", ",", "106", ",", "124", ",", "63", ",", "120", ",", "88", ",", 
-   "72", ",", "97", ",", "47", ",", "87", ",", "117", ",", "178", ",", "83", 
-   ",", "81", ",", "119", ",", "165", ",", "50", ",", "121", ",", "60", ",", 
-   "91"}], "}"}]], "Output"]
+ CellTags->"Info3639171038-9409296"]
 }, Open  ]]
 }, Open  ]],
 
@@ -181,41 +191,43 @@ Cell[CellGroupData[{
 
 Cell["Create a remote directory (test)  and upload a file to it", "Subsection"],
 
-Cell["\<\
-MSFTPPut[ToFileName[\"FileName\" /. NotebookInformation[InputNotebook[]]], \
-\"test\"]\
-\>", "Text"],
-
-Cell[CellGroupData[{
-
 Cell[BoxData[
- RowBox[{"AbsoluteTiming", "@", 
-  RowBox[{"MSFTPGet", "[", 
-   RowBox[{"\"\<aesg\>\"", ",", 
-    RowBox[{"FileNameJoin", "[", 
-     RowBox[{"{", 
-      RowBox[{
-      "$TemporaryDirectory", ",", "\"\<test\>\"", ",", "\"\<aesg\>\""}], 
-      "}"}], "]"}], ",", 
-    RowBox[{"Print", "\[Rule]", "False"}]}], "]"}]}]], "Input"],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{"7.305694952525701`", ",", 
-   RowBox[{"{", 
-    RowBox[{"\<\"C:\\\\mmatemp\\\\test\\\\aesg\"\>", ",", "83690"}], "}"}]}], 
-  "}"}]], "Output"]
-}, Open  ]]
+ RowBox[{"MSFTPPut", "[", 
+  RowBox[{
+   RowBox[{"ToFileName", "[", 
+    RowBox[{"\"\<FileName\>\"", " ", "/.", " ", 
+     RowBox[{"NotebookInformation", "[", 
+      RowBox[{"InputNotebook", "[", "]"}], "]"}]}], "]"}], ",", " ", 
+   "\"\<test\>\""}], "]"}]], "Input"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["\<\
-put a directory with all content into the directory on the server:\
+Get a remote directory (test)  and save it to \
+FileNameJoin[{$TemporaryDirectory,\[CloseCurlyDoubleQuote]test\
+\[CloseCurlyDoubleQuote]}]\
+\>", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{"AbsoluteTiming", "@", 
+  RowBox[{"MSFTPGet", "[", 
+   RowBox[{"\"\<test\>\"", ",", 
+    RowBox[{"FileNameJoin", "[", 
+     RowBox[{"{", 
+      RowBox[{"$TemporaryDirectory", ",", "\"\<test\>\""}], "}"}], "]"}], ",", 
+    RowBox[{"Print", "\[Rule]", "False"}]}], "]"}]}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Put a directory with all its content in a directory \
+\[OpenCurlyDoubleQuote]MSFTP\[CloseCurlyDoubleQuote] on the server:\
 \>", "Subsection"],
 
 Cell["\<\
-AbsoluteTiming@MSFTPPut[NotebookDirectory[] // ParentDirectory, \"MSFTP\"]\
+AbsoluteTiming @ MSFTPPut[ NotebookDirectory[] // ParentDirectory, \"MSFTP\"]\
 \>", "Text"],
 
 Cell["{20.6369, \"C:\\\\repositorygit\\\\MSFTP\"}", "Text"]
@@ -223,8 +235,8 @@ Cell["{20.6369, \"C:\\\\repositorygit\\\\MSFTP\"}", "Text"]
 }, Open  ]]
 },
 Editable->True,
-WindowSize->{1601, 744},
-WindowMargins->{{Automatic, 45}, {Automatic, 17}},
+WindowSize->{1778, 728},
+WindowMargins->{{Automatic, 51}, {Automatic, 17}},
 ShowSelection->True,
 Magnification:>1.4 Inherited,
 FrontEndVersion->"10.1 for Microsoft Windows (64-bit) (March 23, 2015)",
@@ -235,74 +247,79 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "Info3639168019-9281621"->{
-  Cell[2204, 84, 466, 7, 108, "Print",
-   CellTags->"Info3639168019-9281621"],
-  Cell[2761, 99, 170, 3, 57, "Print",
-   CellTags->"Info3639168019-9281621"],
-  Cell[3414, 125, 316, 5, 83, "Print",
-   CellTags->"Info3639168019-9281621"]}
+ "Info3639171037-9409296"->{
+  Cell[3378, 125, 466, 7, 108, "Print",
+   CellTags->"Info3639171037-9409296"]},
+ "Info3639171038-9409296"->{
+  Cell[3935, 140, 170, 3, 57, "Print",
+   CellTags->"Info3639171038-9409296"],
+  Cell[4198, 151, 316, 5, 83, "Print",
+   CellTags->"Info3639171038-9409296"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"Info3639168019-9281621", 6714, 237}
+ {"Info3639171037-9409296", 7098, 249},
+ {"Info3639171038-9409296", 7208, 252}
  }
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 194, 6, 42, "Input"],
+Cell[557, 20, 350, 10, 42, "Input"],
 Cell[CellGroupData[{
-Cell[776, 30, 32, 0, 96, "Section"],
-Cell[CellGroupData[{
-Cell[833, 34, 74, 1, 42, "Input"],
-Cell[910, 37, 94, 1, 41, "Output"]
-}, Open  ]],
-Cell[1019, 41, 843, 21, 259, "Input"],
-Cell[1865, 64, 88, 4, 97, "Text"]
+Cell[932, 34, 103, 2, 42, "Input"],
+Cell[1038, 38, 63, 0, 41, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1990, 73, 43, 0, 96, "Section"],
-Cell[2036, 75, 89, 2, 42, "Input"],
+Cell[1138, 43, 32, 0, 96, "Section"],
 Cell[CellGroupData[{
-Cell[2150, 81, 51, 1, 42, "Input"],
-Cell[2204, 84, 466, 7, 108, "Print",
- CellTags->"Info3639168019-9281621"]
+Cell[1195, 47, 74, 1, 42, "Input"],
+Cell[1272, 50, 94, 1, 41, "Output"]
+}, Open  ]],
+Cell[1381, 54, 1154, 29, 232, "Input"],
+Cell[2538, 85, 88, 4, 97, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2707, 96, 51, 1, 42, "Input"],
-Cell[2761, 99, 170, 3, 57, "Print",
- CellTags->"Info3639168019-9281621"]
+Cell[2663, 94, 43, 0, 96, "Section"],
+Cell[CellGroupData[{
+Cell[2731, 98, 186, 5, 70, "Input"],
+Cell[2920, 105, 159, 3, 41, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2968, 107, 99, 2, 42, "Input"],
-Cell[3070, 111, 251, 6, 103, "Output"]
+Cell[3116, 113, 74, 1, 42, "Input"],
+Cell[3193, 116, 94, 1, 41, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3358, 122, 53, 1, 42, "Input"],
-Cell[3414, 125, 316, 5, 83, "Print",
- CellTags->"Info3639168019-9281621"]
+Cell[3324, 122, 51, 1, 42, "Input"],
+Cell[3378, 125, 466, 7, 108, "Print",
+ CellTags->"Info3639171037-9409296"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3767, 135, 79, 1, 42, "Input"],
-Cell[3849, 138, 461, 8, 67, "Output"]
+Cell[3881, 137, 51, 1, 42, "Input"],
+Cell[3935, 140, 170, 3, 57, "Print",
+ CellTags->"Info3639171038-9409296"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4142, 148, 53, 1, 42, "Input"],
+Cell[4198, 151, 316, 5, 83, "Print",
+ CellTags->"Info3639171038-9409296"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4359, 152, 132, 5, 152, "Section"],
-Cell[4494, 159, 743, 18, 151, "Input"],
+Cell[4563, 162, 132, 5, 152, "Section"],
+Cell[4698, 169, 743, 18, 151, "Input"],
 Cell[CellGroupData[{
-Cell[5262, 181, 79, 0, 67, "Subsection"],
-Cell[5344, 183, 110, 3, 42, "Text"],
-Cell[CellGroupData[{
-Cell[5479, 190, 339, 9, 42, "Input"],
-Cell[5821, 201, 182, 5, 41, "Output"]
-}, Open  ]]
+Cell[5466, 191, 79, 0, 67, "Subsection"],
+Cell[5548, 193, 281, 7, 42, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6052, 212, 96, 2, 67, "Subsection"],
-Cell[6151, 216, 98, 2, 42, "Text"],
-Cell[6252, 220, 59, 0, 42, "Text"]
+Cell[5866, 205, 168, 4, 67, "Subsection"],
+Cell[6037, 211, 304, 7, 42, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6378, 223, 151, 3, 67, "Subsection"],
+Cell[6532, 228, 101, 2, 42, "Text"],
+Cell[6636, 232, 59, 0, 42, "Text"]
 }, Open  ]]
 }, Open  ]]
 }

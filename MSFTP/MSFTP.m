@@ -14,9 +14,9 @@
 (* ::Installation and loading:: *)
 (*
 
-Import["http://packageinstaller.googlecode.com/hg/PackageInstaller/PackageInstaller.m"];
-MathematicaPackageInstaller`MathematicaPackageInstall["http://msftp.googlecode.com/hg/MSFTP.zip"];
-Needs["MSFTP`"];
+Get@"http://goo.gl/Ncbbi6";          (* load MathematicaPackageInstall *)
+MathematicaPackageInstall["MSFTP`"]; (* install MSFTP` *)
+Needs["MSFTP`"];                     (* load it *)
 NotebookOpen[ FileNameJoin[{ParentDirectory@DirectoryName[FindFile["MSFTP`"]], "MSFTP.nb"}]];
 
 *)
@@ -28,11 +28,6 @@ Unprotect[MSFTPPut, MSFTPGet, PassEncode];
 ClearAll[MSFTPPut, MSFTPGet, PassEncode];
 
 If[$VersionNumber < 10, JLink`InstallJava[]; ];
-
-Block[{ifn},
-	ifn = If[$VersionNumber < 8, System`Private`FindFile[$Input], $InputFileName];
- 	AddToClassPath@FileNameJoin[{ DirectoryName @ ifn, "Java"}]
-];
 
 PassEncode::usage="PassEncode[secret] encodes the password secret for the $MachineID of the current computer. 
 The resulting list can be given as an encoded password setting for the option Password of MSFTPPut and MSFTPGet.";
@@ -47,6 +42,12 @@ openchan::authenticated="Authentication failed for user `1` at `2`.";
 openchan::connected="Connection failed for user `1` at `2`.";
 
 Begin["`Private`"]
+
+Block[{ifn},
+	ifn = If[$VersionNumber < 8, System`Private`FindFile[$Input], $InputFileName];
+ 	AddToClassPath@FileNameJoin[{ DirectoryName @ ifn, "Java"}]
+];
+
 
 Options[MSFTPGet] = {
                      "HostName" -> "test.gluonvision.de", 
