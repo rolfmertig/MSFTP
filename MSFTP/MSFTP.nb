@@ -110,7 +110,7 @@ Cell[BoxData[
   RowBox[{"Options", "[", "MSFTPPut", "]"}], "//", "InputForm"}]], "Input"],
 
 Cell["\<\
-{\"HostName\" -> \"www.gluonvision.com\", \"Password\" -> \"kubap0d.b3rl1n\", \
+{\"HostName\" -> \"www.gluonvision.com\", \"Password\" -> \...\", \
 \"Port\" -> 22, 
  \"StrictHostKeyChecking\" -> \"no\", \"PreferredAuthentications\" -> \
 \"password\", 
