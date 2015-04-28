@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      6874,        242]
-NotebookOptionsPosition[      5633,        195]
-NotebookOutlinePosition[      6045,        213]
-CellTagsIndexPosition[      6002,        210]
+NotebookDataLength[     10291,        349]
+NotebookOptionsPosition[      8164,        271]
+NotebookOutlinePosition[      8955,        301]
+CellTagsIndexPosition[      8831,        295]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -95,38 +95,115 @@ Cell[CellGroupData[{
 
 Cell["Inspect package", "Section"],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
  RowBox[{"Names", "[", "\"\<MSFTP`*\>\"", "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"MSFTPGet\"\>", ",", "\<\"MSFTPPut\"\>", 
+   ",", "\<\"PassEncode\"\>"}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "MSFTPPut"}]], "Input"],
 
 Cell[BoxData[
+ StyleBox["\<\"MSFTPPut[fileordirectory, \\\"UserName\\\" -> \\\"rolfm\\\", \
+\\\"HostName\\\" -> \\\"sftpserver.mycompany.com\\\", \\n\\\"Password\\\"->\\\
+\"secret\\\"] uploads fileordirectory. MSFTPPut[fileordir, remotedir] uploads \
+to remotedir.\\nThe password can be either given in clear text, or as a list \
+of integers as returned by PassEncode[\\\"mypassword\\\"].\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3639250890-2988673"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
  RowBox[{"?", "MSFTPGet"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"MSFTPGet[remotefile, localdir] transfers remotefile to \
+localdir.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3639250891-2988673"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "PassEncode"}]], "Input"],
 
 Cell[BoxData[
- RowBox[{"Options", "@", "MSFTPPut"}]], "Input"]
+ StyleBox["\<\"PassEncode[secret] encodes the password secret for the \
+$MachineID of the current computer. \\nThe resulting list can be given as an \
+encoded password setting for the option Password of MSFTPPut and \
+MSFTPGet.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3639250891-2988673"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[TextData[{
- "Tests \nchange ",
- StyleBox["$mypassword",
-  FontWeight->"Bold"],
- " (and eventyally $myusername)"
-}], "Section"],
+Cell[BoxData[
+ RowBox[{"Options", "@", "MSFTPPut"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"HostName\"\>", "\[Rule]", "\<\"www.gluonvision.com\"\>"}], 
+   ",", 
+   RowBox[{"\<\"Password\"\>", "\[Rule]", "\<\"secret\"\>"}], ",", 
+   RowBox[{"\<\"Port\"\>", "\[Rule]", "22"}], ",", 
+   RowBox[{"\<\"UserName\"\>", "\[RuleDelayed]", "$UserName"}], ",", 
+   RowBox[{"Print", "\[Rule]", "PrintTemporary"}]}], "}"}]], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tests ", "Section"],
+
+Cell["\<\
+you can of course set $myUserName,  $myPassword and $myServer here \
+explicitly.
+If not, dialogs will pop up:\
+\>", "Text"],
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"$myUserName", " ", "=", " ", "$UserName"}], 
-  ";"}], "\[IndentingNewLine]", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{"!", 
+     RowBox[{"ValueQ", "[", "$myServer", "]"}]}], ",", " ", 
+    RowBox[{"$myServer", " ", "=", " ", 
+     RowBox[{
+     "InputString", "[", 
+      "\"\<Enter the ssh (sftp) server URL, without http://\>\"", "]"}]}]}], 
+   "]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"$myPassword", " ", "=", " ", "\"\<verysecret\>\""}], 
-  ";"}]}], "Input"],
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{"!", 
+     RowBox[{"ValueQ", "[", "$myUserName", "]"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"$myUserName", " ", "=", "  ", 
+     RowBox[{"InputString", "[", 
+      RowBox[{"\"\<Enter your username on \>\"", "<>", "$myServer"}], 
+      "]"}]}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{"!", 
+     RowBox[{"ValueQ", "[", "$myPassword", "]"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"$myPassword", " ", "=", " ", 
+     RowBox[{"InputString", "[", 
+      RowBox[{
+      "\"\<Enter your password for \>\"", "<>", "$myUserName", "<>", 
+       "\"\< on \>\"", "<>", "$myServer"}], "]"}]}]}], "]"}], ";"}]}], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -134,9 +211,8 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"SetOptions", "[", 
      RowBox[{"#", ",", "\[IndentingNewLine]", 
-      RowBox[{
-      "\"\<HostName\>\"", " ", "\[Rule]", " ", 
-       "\"\<www.gluonvision.com\>\""}], ",", "\[IndentingNewLine]", 
+      RowBox[{"\"\<HostName\>\"", " ", "\[Rule]", " ", "$myServer"}], ",", 
+      "\[IndentingNewLine]", 
       RowBox[{"\"\<UserName\>\"", " ", "\[Rule]", " ", "$myUserName"}], ",", 
       "\[IndentingNewLine]", 
       RowBox[{"\"\<Password\>\"", " ", "\[Rule]", "$myPassword"}]}], 
@@ -194,8 +270,8 @@ Cell[BoxData[
 }, Open  ]]
 },
 Editable->True,
-WindowSize->{1003, 730},
-WindowMargins->{{24, Automatic}, {Automatic, 69}},
+WindowSize->{1494, 730},
+WindowMargins->{{20, Automatic}, {8, Automatic}},
 ShowSelection->True,
 Magnification:>1.25 Inherited,
 FrontEndVersion->"10.1 for Microsoft Windows (64-bit) (March 23, 2015)",
@@ -205,43 +281,74 @@ StyleDefinitions->"Default.nb"
 
 (* Internal cache information *)
 (*CellTagsOutline
-CellTagsIndex->{}
+CellTagsIndex->{
+ "Info3639250890-2988673"->{
+  Cell[3322, 113, 466, 7, 101, "Print",
+   CellTags->"Info3639250890-2988673"]},
+ "Info3639250891-2988673"->{
+  Cell[3879, 128, 170, 3, 52, "Print",
+   CellTags->"Info3639250891-2988673"],
+  Cell[4142, 139, 316, 5, 77, "Print",
+   CellTags->"Info3639250891-2988673"]}
+ }
 *)
 (*CellTagsIndex
-CellTagsIndex->{}
+CellTagsIndex->{
+ {"Info3639250890-2988673", 8539, 284},
+ {"Info3639250891-2988673", 8649, 287}
+ }
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 385, 11, 60, "Input"],
+Cell[557, 20, 385, 11, 36, "Input"],
 Cell[CellGroupData[{
 Cell[967, 35, 60, 3, 137, "Section"],
-Cell[1030, 40, 1631, 40, 405, "Input"],
+Cell[1030, 40, 1631, 40, 359, "Input"],
 Cell[2664, 82, 71, 1, 36, "Input"],
 Cell[2738, 85, 188, 5, 113, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[2963, 95, 34, 0, 86, "Section"],
-Cell[3000, 97, 72, 1, 36, "Input"],
-Cell[3075, 100, 51, 1, 36, "Input"],
-Cell[3129, 103, 51, 1, 36, "Input"],
-Cell[3183, 106, 53, 1, 36, "Input"],
-Cell[3239, 109, 62, 1, 36, "Input"]
+Cell[CellGroupData[{
+Cell[3022, 99, 72, 1, 36, "Input"],
+Cell[3097, 102, 134, 3, 36, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3338, 115, 131, 5, 137, "Section"],
-Cell[3472, 122, 208, 6, 60, "Input"],
-Cell[3683, 130, 580, 14, 129, "Input"],
-Cell[CellGroupData[{
-Cell[4288, 148, 79, 0, 59, "Subsection"],
-Cell[4370, 150, 281, 7, 60, "Input"]
+Cell[3268, 110, 51, 1, 36, "Input"],
+Cell[3322, 113, 466, 7, 101, "Print",
+ CellTags->"Info3639250890-2988673"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4688, 162, 168, 4, 95, "Subsection"],
-Cell[4859, 168, 304, 7, 60, "Input"]
+Cell[3825, 125, 51, 1, 36, "Input"],
+Cell[3879, 128, 170, 3, 52, "Print",
+ CellTags->"Info3639250891-2988673"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5200, 180, 151, 3, 59, "Subsection"],
-Cell[5354, 185, 251, 6, 36, "Input"]
+Cell[4086, 136, 53, 1, 36, "Input"],
+Cell[4142, 139, 316, 5, 77, "Print",
+ CellTags->"Info3639250891-2988673"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4495, 149, 62, 1, 36, "Input"],
+Cell[4560, 152, 385, 8, 36, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4994, 166, 25, 0, 86, "Section"],
+Cell[5022, 168, 133, 4, 63, "Text"],
+Cell[5158, 174, 1079, 31, 129, "Input"],
+Cell[6240, 207, 554, 13, 129, "Input"],
+Cell[CellGroupData[{
+Cell[6819, 224, 79, 0, 59, "Subsection"],
+Cell[6901, 226, 281, 7, 36, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7219, 238, 168, 4, 59, "Subsection"],
+Cell[7390, 244, 304, 7, 36, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7731, 256, 151, 3, 59, "Subsection"],
+Cell[7885, 261, 251, 6, 36, "Input"]
 }, Open  ]]
 }, Open  ]]
 }
