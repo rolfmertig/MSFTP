@@ -38,10 +38,11 @@ MSFTPPut::usage = "MSFTPPut[fileordirectory, \"UserName\" -> \"rolfm\", \"HostNa
 \"Password\"->\"secret\"] uploads fileordirectory. MSFTPPut[fileordir, remotedir] uploads to remotedir.
 The password can be either given in clear text, or as a list of integers as returned by PassEncode[\"mypassword\"].";
 
-openchan::authenticated="Authentication failed for user `1` at `2`.";
-openchan::connected="Connection failed for user `1` at `2`.";
 
 Begin["`Private`"]
+
+openchan::authenticated="Authentication failed for user `1` at `2`.";
+openchan::connected="Connection failed for user `1` at `2`.";
 
 Block[{ifn},
 	ifn = If[$VersionNumber < 8, System`Private`FindFile[$Input], $InputFileName];
@@ -85,8 +86,12 @@ openChannelM[prot_String, opts_List] :=
                   InstallJava[];
                   {jsch, util, conf} = 
                   JavaNew /@ {"org.vngx.jsch.JSch", "org.vngx.jsch.Util", "org.vngx.jsch.config.SessionConfig"};
+                  conf[setProperty["StrictHostKeyChecking", "no"]];
+                  conf[setProperty["PreferredAuthentications", "password"]];
+                  (*
                   conf[setProperty["StrictHostKeyChecking", "StrictHostKeyChecking" /. opts]];
                   conf[setProperty["PreferredAuthentications", "PreferredAuthentications" /. opts]];
+                  *)
                   {username, host, port, pwd} = {"UserName", "HostName", "Port", "Password"} /. opts;
                   session = jsch[createSession[username, host, port, conf]];
                   session[connect[util[str2byte[PassDecode[pwd]]]]];
