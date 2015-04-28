@@ -10,51 +10,56 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      6534,        238]
-NotebookOptionsPosition[      5156,        186]
-NotebookOutlinePosition[      5567,        204]
-CellTagsIndexPosition[      5524,        201]
+NotebookDataLength[      7137,        257]
+NotebookOptionsPosition[      5757,        204]
+NotebookOutlinePosition[      6169,        222]
+CellTagsIndexPosition[      6126,        219]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 Cell[BoxData[
  RowBox[{
-  RowBox[{"PrependTo", "[", 
-   RowBox[{"$Path", ",", " ", 
-    RowBox[{
-     RowBox[{"NotebookDirectory", "[", "]"}], "//", "ParentDirectory"}]}], 
-   "]"}], ";", " ", 
+  RowBox[{
+   RowBox[{"PrependTo", "[", 
+    RowBox[{"$Path", ",", " ", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], "//", "ParentDirectory"}]}], 
+    "]"}], ";"}], " ", 
   RowBox[{"(*", 
    RowBox[{
    "if", " ", "this", " ", "notebook", " ", "is", " ", "called", " ", "from", 
     " ", "workbench"}], " ", "*)"}]}]], "Input"],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{"NotebookDirectory", "[", "]"}], "//", "ParentDirectory"}]], "Input"],
-
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"DateString", "[", "]"}]], "Input"],
+ RowBox[{"NotebookDirectory", "[", "]"}]], "Input"],
 
-Cell[BoxData["\<\"Tue 28 Apr 2015 01:10:45\"\>"], "Output"]
+Cell[BoxData["\<\"C:\\\\repositorygit\\\\MSFTP\\\\MSFTP\\\\\"\>"], "Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Install MSFTP", "Section"],
+Cell["\<\
+Install MSFTP, if needed.
+Load it\
+\>", "Section"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"FindFile", "[", "\"\<MSFTP`\>\"", "]"}]], "Input"],
+
+Cell[BoxData["$Failed"], "Output"]
+}, Open  ]],
 
 Cell[BoxData[
  RowBox[{"If", "[", 
   RowBox[{
    RowBox[{
     RowBox[{"FindFile", "[", "\"\<MSFTP`\>\"", "]"}], "===", "$Failed"}], ",",
-    " ", "\[IndentingNewLine]", 
+    " ", "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"If", "[", 
      RowBox[{
@@ -68,38 +73,43 @@ Cell[BoxData[
 MathematicaPackageInstall/master/MathematicaPackageInstall/\
 MathematicaPackageInstall.m\>\""}]}], "\[IndentingNewLine]", "]"}], ";", 
     "\[IndentingNewLine]", 
-    RowBox[{"MathematicaPackageInstall`$AutoInstall", " ", "=", " ", "True"}],
-     ";", " ", 
     RowBox[{"(*", " ", 
      RowBox[{
-     "automatically", " ", "install", " ", "Unzip", " ", "and", " ", 
-      "CopyRemote", " ", "to", " ", 
+      RowBox[{
+       RowBox[{
+       "Setting", " ", "\[IndentingNewLine]", 
+        "MathematicaPackageInstall`$AutomaticInstall"}], " ", "=", " ", 
+       "True"}], ";", "   ", "\[IndentingNewLine]", "  ", 
+      RowBox[{
+      "here", " ", "would", " ", "also", " ", "automatically", " ", "install",
+        " ", "Unzip", " ", "and", " ", "CopyRemote", " ", "to", " ", 
+       RowBox[{"$UserBase", "/", "Applications"}]}]}], " ", 
+     "\[IndentingNewLine]", "*)"}], "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"(*", " ", 
+     RowBox[{
+     "This", " ", "installs", " ", "the", " ", "package", " ", "MSFTP", " ", 
+      "to", " ", 
       RowBox[{"$UserBase", "/", "Applications"}]}], " ", "*)"}], 
     "\[IndentingNewLine]", 
     RowBox[{
     "MathematicaPackageInstall`MathematicaPackageInstall", "[", 
-     "\"\<MSFTP`\>\"", "]"}]}]}], "\[IndentingNewLine]", "]"}]], "Input"],
+     "\"\<MSFTP\>\"", "]"}]}]}], "\[IndentingNewLine]", "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<MSFTP`\>\"", "]"}]], "Input"],
 
 Cell["\<\
 Uninstall by executing:
-
-MathematicaPackageUninstall[\"MSFTP`\"]\
+Get@\[CloseCurlyDoubleQuote]http://goo.gl/Ncbbi6\[CloseCurlyDoubleQuote];
+MathematicaPackageInstall`MathematicaPackageUninstall[\"MSFTP\"] 
+\
 \>", "Text"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Load and inspect package", "Section"],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{
-   RowBox[{"Needs", "[", "\"\<MSFTP`\>\"", "]"}], ";"}], 
-  " "}], "\[IndentingNewLine]", 
- RowBox[{"Names", "[", "\"\<MSFTP`*\>\"", "]"}]}], "Input"],
-
-Cell[BoxData[
- RowBox[{"FindFile", "[", "\"\<MSFTP`\>\"", "]"}]], "Input"],
+Cell["Inspect package", "Section"],
 
 Cell[BoxData[
  RowBox[{"?", "MSFTPPut"}]], "Input"],
@@ -108,34 +118,43 @@ Cell[BoxData[
  RowBox[{"?", "MSFTPGet"}]], "Input"],
 
 Cell[BoxData[
- RowBox[{"?", "PassEncode"}]], "Input"]
+ RowBox[{"?", "PassEncode"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"Options", "@", "MSFTPPut"}]], "Input"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[TextData[{
- "Tests \nfor the purpose of testing change ",
- StyleBox["YOURPASSWORD",
+ "Tests \nchange ",
+ StyleBox["$mypassword",
   FontWeight->"Bold"],
- " :"
+ " (and eventyally $myusername)"
 }], "Section"],
 
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"$myUserName", " ", "=", " ", "$UserName"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$myPassword", " ", "=", " ", "\"\<verysecret\>\""}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"SetOptions", "[", 
-     RowBox[{"#", ",", 
-      RowBox[{"Print", "\[Rule]", "True"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"#", ",", "\[IndentingNewLine]", 
       RowBox[{
       "\"\<HostName\>\"", " ", "\[Rule]", " ", 
        "\"\<www.gluonvision.com\>\""}], ",", "\[IndentingNewLine]", 
-      RowBox[{"\"\<UserName\>\"", " ", "\[Rule]", " ", "\"\<kuba\>\""}], ",", 
+      RowBox[{"\"\<UserName\>\"", " ", "\[Rule]", " ", "$myUserName"}], ",", 
       "\[IndentingNewLine]", 
-      RowBox[{"\"\<Password\>\"", " ", "\[Rule]", "\"\<YOURPASSWORD\>\""}]}], 
+      RowBox[{"\"\<Password\>\"", " ", "\[Rule]", "$myPassword"}]}], 
      "\[IndentingNewLine]", "]"}], "&"}], " ", "/@", " ", 
    RowBox[{"{", 
-    RowBox[{"MSFTPGet", ",", "MSFTPPut"}], "}"}]}], ";"}]], "Input"],
+    RowBox[{"MSFTPGet", ",", "MSFTPPut"}], "}"}]}], ";"}]}], "Input"],
 
 Cell[CellGroupData[{
 
@@ -178,17 +197,16 @@ Put a directory with all its content in a directory \
 
 Cell["\<\
 AbsoluteTiming @ MSFTPPut[ NotebookDirectory[] // ParentDirectory, \"MSFTP\"]\
-\>", "Text"],
-
-Cell["{20.6369, \"C:\\\\repositorygit\\\\MSFTP\"}", "Text"]
+\
+\>", "Text"]
 }, Open  ]]
 }, Open  ]]
 },
 Editable->True,
-WindowSize->{1772, 728},
-WindowMargins->{{Automatic, 57}, {Automatic, 17}},
+WindowSize->{1106, 867},
+WindowMargins->{{40, Automatic}, {Automatic, 19}},
 ShowSelection->True,
-Magnification:>1.4 Inherited,
+Magnification:>1.25 Inherited,
 FrontEndVersion->"10.1 for Microsoft Windows (64-bit) (March 23, 2015)",
 StyleDefinitions->"Default.nb"
 ]
@@ -203,41 +221,42 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 350, 10, 42, "Input"],
-Cell[910, 32, 103, 2, 42, "Input"],
+Cell[557, 20, 368, 11, 60, "Input"],
 Cell[CellGroupData[{
-Cell[1038, 38, 58, 1, 42, "Input"],
-Cell[1099, 41, 59, 0, 41, "Output"]
+Cell[950, 35, 65, 1, 36, "Input"],
+Cell[1018, 38, 76, 0, 36, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1195, 46, 32, 0, 96, "Section"],
-Cell[1230, 48, 74, 1, 42, "Input"],
-Cell[1307, 51, 1154, 29, 232, "Input"],
-Cell[2464, 82, 88, 4, 97, "Text"]
+Cell[1131, 43, 60, 3, 137, "Section"],
+Cell[CellGroupData[{
+Cell[1216, 50, 74, 1, 36, "Input"],
+Cell[1293, 53, 34, 0, 36, "Output"]
+}, Open  ]],
+Cell[1342, 56, 1631, 40, 359, "Input"],
+Cell[2976, 98, 71, 1, 36, "Input"],
+Cell[3050, 101, 188, 5, 113, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2589, 91, 43, 0, 96, "Section"],
-Cell[2635, 93, 186, 5, 70, "Input"],
-Cell[2824, 100, 74, 1, 42, "Input"],
-Cell[2901, 103, 51, 1, 42, "Input"],
-Cell[2955, 106, 51, 1, 42, "Input"],
-Cell[3009, 109, 53, 1, 42, "Input"]
+Cell[3275, 111, 34, 0, 86, "Section"],
+Cell[3312, 113, 51, 1, 36, "Input"],
+Cell[3366, 116, 51, 1, 36, "Input"],
+Cell[3420, 119, 53, 1, 36, "Input"],
+Cell[3476, 122, 62, 1, 36, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3099, 115, 132, 5, 152, "Section"],
-Cell[3234, 122, 640, 15, 151, "Input"],
+Cell[3575, 128, 131, 5, 137, "Section"],
+Cell[3709, 135, 826, 21, 198, "Input"],
 Cell[CellGroupData[{
-Cell[3899, 141, 79, 0, 67, "Subsection"],
-Cell[3981, 143, 281, 7, 42, "Input"]
+Cell[4560, 160, 79, 0, 59, "Subsection"],
+Cell[4642, 162, 281, 7, 36, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4299, 155, 168, 4, 67, "Subsection"],
-Cell[4470, 161, 304, 7, 42, "Input"]
+Cell[4960, 174, 168, 4, 59, "Subsection"],
+Cell[5131, 180, 304, 7, 36, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4811, 173, 151, 3, 67, "Subsection"],
-Cell[4965, 178, 101, 2, 42, "Text"],
-Cell[5069, 182, 59, 0, 42, "Text"]
+Cell[5472, 192, 151, 3, 59, "Subsection"],
+Cell[5626, 197, 103, 3, 38, "Text"]
 }, Open  ]]
 }, Open  ]]
 }

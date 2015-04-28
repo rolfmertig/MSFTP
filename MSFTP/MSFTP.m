@@ -50,12 +50,14 @@ Block[{ifn},
 
 
 Options[MSFTPGet] = {
-                     "HostName" -> "www.gluonvision.com", 
+                     "HostName" -> "www.gluonvision.de", 
                      "Password" -> "secret",
                      "Port" -> 22,
+                     (*
                      (* there are more of these options. In principle easy to implement *)
                      "StrictHostKeyChecking" -> "no",
                      "PreferredAuthentications" -> "password",
+                     *)
                      "UserName" :> $UserName,
                      Print -> False 
                      };
