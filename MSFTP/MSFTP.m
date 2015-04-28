@@ -27,7 +27,7 @@ BeginPackage["MSFTP`", {"JLink`"}]
 Unprotect[MSFTPPut, MSFTPGet, PassEncode];
 ClearAll[MSFTPPut, MSFTPGet, PassEncode];
 
-If[$VersionNumber < 10, JLink`InstallJava[]; ];
+ReinstallJava[JVMArguments -> "-Xmx" <> If[NumberQ[$SystemMemory], ToString@Round[0.3 $SystemMemory/1024^2], "512"] <> "m"];
 
 PassEncode::usage="PassEncode[secret] encodes the password secret for the $MachineID of the current computer. 
 The resulting list can be given as an encoded password setting for the option Password of MSFTPPut and MSFTPGet.";
@@ -38,20 +38,15 @@ MSFTPPut::usage = "MSFTPPut[fileordirectory, \"UserName\" -> \"rolfm\", \"HostNa
 \"Password\"->\"secret\"] uploads fileordirectory. MSFTPPut[fileordir, remotedir] uploads to remotedir.
 The password can be either given in clear text, or as a list of integers as returned by PassEncode[\"mypassword\"].";
 
-
-Begin["`Private`"]
-
 openchan::authenticated="Authentication failed for user `1` at `2`.";
 openchan::connected="Connection failed for user `1` at `2`.";
+
+Begin["`Private`"]
 
 Block[{ifn},
 	ifn = If[$VersionNumber < 8, System`Private`FindFile[$Input], $InputFileName];
  	AddToClassPath@FileNameJoin[{ DirectoryName @ ifn, "Java"}]
-];
-
-
-Options[MSFTPGet] = {
-                     "HostName" -> "www.gluonvision.de", 
+]; Options[MSFTPGet] = { "HostName" -> "www.gluonvision.de", 
                      "Password" -> "secret",
                      "Port" -> 22,
                      (*
@@ -60,7 +55,7 @@ Options[MSFTPGet] = {
                      "PreferredAuthentications" -> "password",
                      *)
                      "UserName" :> $UserName,
-                     Print -> False 
+                     Print -> PrintTemporary 
                      };
                      
 Options[MSFTPPut] = Options[MSFTPGet];
@@ -83,7 +78,7 @@ PassDecode[li : {__Integer}] := ReleaseHold[ImportString[FromCharacterCode[li], 
 openChannelM[prot_String, opts_List] :=
     Block[ {setProperty, connect, str2byte, isAuthenticated, isConnected, createSession},
         Catch[Module[ {channel, conf, jsch, util, username, host, port, pwd, session},
-                  InstallJava[];
+                  ReinstallJava[JVMArguments -> "-Xmx" <> If[NumberQ[$SystemMemory], ToString@Round[0.3 $SystemMemory/1024^2], "512"] <> "m"];
                   {jsch, util, conf} = 
                   JavaNew /@ {"org.vngx.jsch.JSch", "org.vngx.jsch.Util", "org.vngx.jsch.config.SessionConfig"};
                   conf[setProperty["StrictHostKeyChecking", "no"]];
@@ -142,7 +137,10 @@ Block[{getAttrs, getSize, toArray, get, disconnect, getFilename, ls, i,stat, isD
               ];
               
               channel@disconnect[];
+              (*
               {localdir, Total[ FileByteCount /@ Select[FileNames["*", localdir, Infinity], FileType[#]===File &]]}
+              *)
+              localdir
     	]]
 
 (* local can be either a file, or a wildcard or a directory *)
