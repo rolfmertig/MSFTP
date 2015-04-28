@@ -23,6 +23,16 @@
 (* ::Installation and loading:: *)
 (*
 
+either execute:
+
+Import["http://www.mertig.com/msftpinstall.m"]
+
+or 
+
+Get @ "http://goo.gl/y4pCZ8"
+
+or 
+
 Get@"http://goo.gl/Ncbbi6";          (* load the MathematicaPackageInstall function from github *)
 MathematicaPackageInstall`MathematicaPackageInstall["MSFTP"]; (* install this MSFTP package from github *)
 Needs["MSFTP`"];                     (* load it and open the example notebook *)
