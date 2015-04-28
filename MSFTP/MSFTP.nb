@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      7137,        257]
-NotebookOptionsPosition[      5757,        204]
-NotebookOutlinePosition[      6169,        222]
-CellTagsIndexPosition[      6126,        219]
+NotebookDataLength[      7197,        258]
+NotebookOptionsPosition[      5817,        205]
+NotebookOutlinePosition[      6229,        223]
+CellTagsIndexPosition[      6186,        220]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -51,7 +51,8 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"FindFile", "[", "\"\<MSFTP`\>\"", "]"}]], "Input"],
 
-Cell[BoxData["$Failed"], "Output"]
+Cell[BoxData["\<\"C:\\\\repositorygit\\\\MSFTP\\\\MSFTP\\\\Kernel\\\\init.m\"\
+\>"], "Output"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -230,33 +231,33 @@ Cell[CellGroupData[{
 Cell[1131, 43, 60, 3, 137, "Section"],
 Cell[CellGroupData[{
 Cell[1216, 50, 74, 1, 36, "Input"],
-Cell[1293, 53, 34, 0, 36, "Output"]
+Cell[1293, 53, 94, 1, 36, "Output"]
 }, Open  ]],
-Cell[1342, 56, 1631, 40, 359, "Input"],
-Cell[2976, 98, 71, 1, 36, "Input"],
-Cell[3050, 101, 188, 5, 113, "Text"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3275, 111, 34, 0, 86, "Section"],
-Cell[3312, 113, 51, 1, 36, "Input"],
-Cell[3366, 116, 51, 1, 36, "Input"],
-Cell[3420, 119, 53, 1, 36, "Input"],
-Cell[3476, 122, 62, 1, 36, "Input"]
+Cell[1402, 57, 1631, 40, 359, "Input"],
+Cell[3036, 99, 71, 1, 36, "Input"],
+Cell[3110, 102, 188, 5, 113, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3575, 128, 131, 5, 137, "Section"],
-Cell[3709, 135, 826, 21, 198, "Input"],
-Cell[CellGroupData[{
-Cell[4560, 160, 79, 0, 59, "Subsection"],
-Cell[4642, 162, 281, 7, 36, "Input"]
+Cell[3335, 112, 34, 0, 86, "Section"],
+Cell[3372, 114, 51, 1, 36, "Input"],
+Cell[3426, 117, 51, 1, 36, "Input"],
+Cell[3480, 120, 53, 1, 36, "Input"],
+Cell[3536, 123, 62, 1, 36, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4960, 174, 168, 4, 59, "Subsection"],
-Cell[5131, 180, 304, 7, 36, "Input"]
+Cell[3635, 129, 131, 5, 137, "Section"],
+Cell[3769, 136, 826, 21, 198, "Input"],
+Cell[CellGroupData[{
+Cell[4620, 161, 79, 0, 59, "Subsection"],
+Cell[4702, 163, 281, 7, 36, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5472, 192, 151, 3, 59, "Subsection"],
-Cell[5626, 197, 103, 3, 38, "Text"]
+Cell[5020, 175, 168, 4, 59, "Subsection"],
+Cell[5191, 181, 304, 7, 36, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5532, 193, 151, 3, 59, "Subsection"],
+Cell[5686, 198, 103, 3, 38, "Text"]
 }, Open  ]]
 }, Open  ]]
 }
