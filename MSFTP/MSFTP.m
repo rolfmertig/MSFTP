@@ -9,14 +9,23 @@
 (* ::Title:: *)
 (* Implementation of sftp for Mathematica, using JLink and vngx-jsch *)
 
+(* ::Discussion:: *)
+(* All you need is an sshd service on a Linux box and a user account with password.
+   Then you can use this username and password in MSFTPut and MSFTPGet to upload and download
+   password protected files and directories.
+   
+   This package grew out of a question asked 2012 here:
+   http://mathematica.stackexchange.com/questions/10041/automating-ftp-upload-within-mathematica/19015#19015
+*)
+
 (* :: Mathematica Version: 7 - 10  *)
 
 (* ::Installation and loading:: *)
 (*
 
-Get@"http://goo.gl/Ncbbi6";          (* load MathematicaPackageInstall *)
-MathematicaPackageInstall`MathematicaPackageInstall["MSFTP`"]; (* install MSFTP` *)
-Needs["MSFTP`"];                     (* load it *)
+Get@"http://goo.gl/Ncbbi6";          (* load the MathematicaPackageInstall function from github *)
+MathematicaPackageInstall`MathematicaPackageInstall["MSFTP"]; (* install this MSFTP package from github *)
+Needs["MSFTP`"];                     (* load it and open the example notebook *)
 NotebookOpen[ FileNameJoin[{ParentDirectory@DirectoryName[FindFile["MSFTP`"]], "MSFTP.nb"}]];
 
 *)
@@ -38,10 +47,12 @@ MSFTPPut::usage = "MSFTPPut[fileordirectory, \"UserName\" -> \"rolfm\", \"HostNa
 \"Password\"->\"secret\"] uploads fileordirectory. MSFTPPut[fileordir, remotedir] uploads to remotedir.
 The password can be either given in clear text, or as a list of integers as returned by PassEncode[\"mypassword\"].";
 
+Begin["`Private`"]
+
+
 openchan::authenticated="Authentication failed for user `1` at `2`.";
 openchan::connected="Connection failed for user `1` at `2`.";
 
-Begin["`Private`"]
 
 Block[{ifn},
 	ifn = If[$VersionNumber < 8, System`Private`FindFile[$Input], $InputFileName];
