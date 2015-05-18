@@ -1,0 +1,24 @@
+-classpath
+'C:/Users/Rolf Mertig/.m2/repository/com/jcraft/jzlib/com.springsource.com.jcraft.jzlib/1.0.7/com.springsource.com.jcraft.jzlib-1.0.7.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'C:/repositorygit/MSFTP/src-vngx-jsch/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2015. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/repositorygit/MSFTP/src-vngx-jsch/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'vngx-jsch 0.10 API'
+-linkoffline
+'http://docs.oracle.com/javase/6/docs/api' 'C:/repositorygit/MSFTP/src-vngx-jsch/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'vngx-jsch 0.10 API'
